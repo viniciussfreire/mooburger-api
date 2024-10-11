@@ -22,6 +22,14 @@
       "recommended": true,
       "style": {
         "useImportType": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
+      },
+      "complexity": {
+        "noUselessConstructor": "off",
+        "noStaticOnlyClass": "off",
+        "noThisInStatic": "off"
       }
     }
   },
