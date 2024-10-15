@@ -1,5 +1,5 @@
 import { UniqueEntityId } from "@/core/entities";
-import { Customer } from "./customer";
+import { Customer } from "./customer.entity";
 import { InvalidDocumentError, InvalidEmailError } from "./errors";
 import { CustomerDocument, CustomerEmail } from "./value-objects";
 

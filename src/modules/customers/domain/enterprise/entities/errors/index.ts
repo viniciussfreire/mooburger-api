@@ -1,2 +1,2 @@
-export * from "./invalid-document";
-export * from "./invalid-email";
+export * from "./invalid-document.error";
+export * from "./invalid-email.error";

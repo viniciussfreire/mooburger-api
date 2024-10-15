@@ -1,2 +1,2 @@
-export * from "./customer-document";
-export * from "./customer-email";
+export * from "./customer-document.value-object";
+export * from "./customer-email.value-object";

@@ -1,5 +1,5 @@
 import { InvalidDocumentError } from "../errors";
-import { CustomerDocument } from "./customer-document";
+import { CustomerDocument } from "./customer-document.value-object";
 
 describe("CustomerDocument", () => {
 	it("should be able to create a valid customer document", () => {

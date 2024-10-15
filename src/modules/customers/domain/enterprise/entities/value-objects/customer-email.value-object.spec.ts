@@ -1,5 +1,5 @@
 import { InvalidEmailError } from "../errors";
-import { CustomerEmail } from "./customer-email";
+import { CustomerEmail } from "./customer-email.value-object";
 
 describe("CustomerEmail", () => {
 	it("should be able to create a valid customer email", () => {
