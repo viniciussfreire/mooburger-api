@@ -8,6 +8,8 @@ export default defineConfig({
 		globals: true,
 		root: "./",
 
+		passWithNoTests: true,
+
 		coverage: {
 			reporter: ["text", "json", "html"],
 			thresholds: {

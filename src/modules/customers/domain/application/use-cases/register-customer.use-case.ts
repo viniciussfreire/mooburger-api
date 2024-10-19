@@ -45,17 +45,14 @@ export class RegisterCustomerUseCase {
 		this.#logger.log("🤖 - Check if customer already exists...");
 
 		const customerWithDocumentAlreadyExists =
-			await this.customerRepository.fetch({
-				document: customer.document,
-			});
-		if (customerWithDocumentAlreadyExists.length) {
+			await this.customerRepository.getByDocument(customer.document);
+		if (customerWithDocumentAlreadyExists) {
 			return left(new CustomerAlreadyExistsError());
 		}
 
-		const customerWithEmailAlreadyExists = await this.customerRepository.fetch({
-			email: customer.email,
-		});
-		if (customerWithEmailAlreadyExists.length) {
+		const customerWithEmailAlreadyExists =
+			await this.customerRepository.getByEmail(customer.email);
+		if (customerWithEmailAlreadyExists) {
 			return left(new CustomerAlreadyExistsError());
 		}
 

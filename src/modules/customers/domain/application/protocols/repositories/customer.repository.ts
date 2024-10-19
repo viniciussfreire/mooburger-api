@@ -1,3 +1,4 @@
+import { IPaginationOptions, IPaginationResult } from "@/core/types/pagination";
 import { Customer } from "../../../enterprise/entities";
 import {
 	CustomerDocument,
@@ -7,12 +8,17 @@ import {
 export type SaveCustomerRepositoryInput = Customer;
 export type SaveCustomerRepositoryOutput = void;
 
-export type FetchCustomerRepositoryInput = {
+type FetchCustomerOptions = {
 	name?: string;
 	email?: CustomerEmail;
 	document?: CustomerDocument;
 };
-export type FetchCustomerRepositoryOutput = Array<Customer>;
+export type FetchCustomerRepositoryInput =
+	IPaginationOptions<FetchCustomerOptions>;
+export type FetchCustomerRepositoryOutput = IPaginationResult<Customer>;
+
+export type GetByDocumentRepositoryOutput = Customer | null;
+export type GetByEmailRepositoryOutput = Customer | null;
 
 export abstract class CustomerRepository {
 	abstract save(
@@ -21,4 +27,10 @@ export abstract class CustomerRepository {
 	abstract fetch(
 		params: FetchCustomerRepositoryInput,
 	): Promise<FetchCustomerRepositoryOutput>;
+	abstract getByDocument(
+		document: CustomerDocument,
+	): Promise<GetByDocumentRepositoryOutput>;
+	abstract getByEmail(
+		email: CustomerEmail,
+	): Promise<GetByEmailRepositoryOutput>;
 }

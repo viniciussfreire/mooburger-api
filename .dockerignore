@@ -6,9 +6,6 @@
 # Documentation
 /docs
 
-# Temporary folders
-/tmp
-
 # Logs
 logs
 *.log
