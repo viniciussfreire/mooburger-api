@@ -29,6 +29,9 @@ importers:
       '@nestjs/terminus':
         specifier: 10.2.3
         version: 10.2.3(@nestjs/common@10.0.0(reflect-metadata@0.1.12)(rxjs@7.8.1))(@nestjs/core@10.0.0)(reflect-metadata@0.1.12)(rxjs@7.8.1)
+      cpf-cnpj-validator:
+        specifier: 1.0.3
+        version: 1.0.3
       reflect-metadata:
         specifier: 0.1.12
         version: 0.1.12
@@ -400,6 +403,27 @@ packages:
 
   '@fastify/static@7.0.0':
     resolution: {integrity: sha512-JCuzYMgbIY1Ws5e3dmPFWAZ0MwkKNn4Pmd/gk3RlCOCLDtA6eUq7WZyBz/TpnCi6ae8FOY1s33POo4rioYgWTg==}
+
+  '@hapi/address@4.1.0':
+    resolution: {integrity: sha512-SkszZf13HVgGmChdHo/PxchnSaCJ6cetVqLzyciudzZRT0jcOouIF/Q93mgjw8cce+D+4F4C1Z/WrfFN+O3VHQ==}
+    deprecated: Moved to 'npm install @sideway/address'
+
+  '@hapi/formula@2.0.0':
+    resolution: {integrity: sha512-V87P8fv7PI0LH7LiVi8Lkf3x+KCO7pQozXRssAHNXXL9L1K+uyu4XypLXwxqVDKgyQai6qj3/KteNlrqDx4W5A==}
+    deprecated: Moved to 'npm install @sideway/formula'
+
+  '@hapi/hoek@9.3.0':
+    resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
+
+  '@hapi/joi@17.1.1':
+    resolution: {integrity: sha512-p4DKeZAoeZW4g3u7ZeRo+vCDuSDgSvtsB/NpfjXEHTUjSeINAi/RrVOWiVQ1isaoLzMvFEhe8n5065mQq1AdQg==}
+    deprecated: Switch to 'npm install joi'
+
+  '@hapi/pinpoint@2.0.1':
+    resolution: {integrity: sha512-EKQmr16tM8s16vTT3cA5L0kZZcTMU5DUOZTuvpnY738m+jyP3JIUj+Mm1xc1rsLkGBQ/gVnfKYPwOmPg1tUR4Q==}
+
+  '@hapi/topo@5.1.0':
+    resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1340,6 +1364,9 @@ packages:
   cosmiconfig@7.1.0:
     resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
     engines: {node: '>=10'}
+
+  cpf-cnpj-validator@1.0.3:
+    resolution: {integrity: sha512-Slh7iv+sf2FhP9xFRMExuaDF7ndERVzmjBZHqwWG+GqHSqPmEggvLuKUUFJZxb+G804rjqRnnu5eCkbeChqM/Q==}
 
   cpu-features@0.0.10:
     resolution: {integrity: sha512-9IkYqtX3YHPCzoVg1Py+o9057a3i0fp7S530UWokCSaFVTc7CwXPRiOjRjBQQ18ZCNafx78YfnG+HALxtVmOGA==}
@@ -3266,6 +3293,28 @@ snapshots:
       glob: 10.4.2
       p-limit: 3.1.0
 
+  '@hapi/address@4.1.0':
+    dependencies:
+      '@hapi/hoek': 9.3.0
+
+  '@hapi/formula@2.0.0': {}
+
+  '@hapi/hoek@9.3.0': {}
+
+  '@hapi/joi@17.1.1':
+    dependencies:
+      '@hapi/address': 4.1.0
+      '@hapi/formula': 2.0.0
+      '@hapi/hoek': 9.3.0
+      '@hapi/pinpoint': 2.0.1
+      '@hapi/topo': 5.1.0
+
+  '@hapi/pinpoint@2.0.1': {}
+
+  '@hapi/topo@5.1.0':
+    dependencies:
+      '@hapi/hoek': 9.3.0
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -4224,6 +4273,10 @@ snapshots:
       parse-json: 5.2.0
       path-type: 4.0.0
       yaml: 1.10.2
+
+  cpf-cnpj-validator@1.0.3:
+    dependencies:
+      '@hapi/joi': 17.1.1
 
   cpu-features@0.0.10:
     dependencies:
