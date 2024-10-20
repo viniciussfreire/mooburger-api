@@ -4,9 +4,11 @@ import {
 	FastifyAdapter,
 	NestFastifyApplication,
 } from "@nestjs/platform-fastify";
+import { SwaggerModule } from "@nestjs/swagger";
 
 import { AppModule } from "./app.module";
 import { GetEnvService } from "./shared/config/env/services";
+import { swaggerConfig } from "./shared/config/swagger";
 
 async function bootstrap() {
 	const logger = new Logger("ServerBootstrap");
@@ -20,6 +22,13 @@ async function bootstrap() {
 
 	app.enableVersioning({
 		type: VersioningType.URI,
+	});
+
+	const documentFactory = () =>
+		SwaggerModule.createDocument(app, swaggerConfig);
+	SwaggerModule.setup("swagger", app, documentFactory, {
+		jsonDocumentUrl: "swagger/json",
+		yamlDocumentUrl: "swagger/yaml",
 	});
 
 	await app.listen(
