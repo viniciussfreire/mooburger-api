@@ -9,6 +9,11 @@ export default defineConfig({
 		root: "./",
 
 		passWithNoTests: true,
+
+		maxConcurrency: 1,
+		fileParallelism: false,
+
+		globalSetup: ["./test/setup/global.ts"],
 	},
 	plugins: [
 		swc.vite({
