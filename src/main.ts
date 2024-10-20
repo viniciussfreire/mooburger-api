@@ -1,20 +1,34 @@
-import { NestFactory } from '@nestjs/core';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { Logger, VersioningType } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import {
+	FastifyAdapter,
+	NestFastifyApplication,
+} from "@nestjs/platform-fastify";
 
-import { Logger } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { AppModule } from "./app.module";
+import { GetEnvService } from "./shared/config/env/services";
 
 async function bootstrap() {
-  const logger = new Logger('ServerBootstrap');
+	const logger = new Logger("ServerBootstrap");
 
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
-  await app.listen({
-    host: '0.0.0.0',
-    port: 3333,
-  }, () => logger.log(`🚀 Server started on port ${3333}`));
+	const app = await NestFactory.create<NestFastifyApplication>(
+		AppModule,
+		new FastifyAdapter(),
+	);
+
+	const envs = await app.resolve(GetEnvService);
+
+	app.enableVersioning({
+		type: VersioningType.URI,
+	});
+
+	await app.listen(
+		{
+			host: envs.get("HOST"),
+			port: envs.get("PORT"),
+		},
+		() => logger.log(`🚀 Server started on port ${envs.get("PORT")}`),
+	);
 }
 
 bootstrap();

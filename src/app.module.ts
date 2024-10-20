@@ -1,4 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-@Module({})
+import { SharedModule } from "./shared";
+
+@Module({
+	imports: [SharedModule],
+})
 export class AppModule {}
