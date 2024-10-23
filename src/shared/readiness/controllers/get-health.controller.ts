@@ -1,6 +1,11 @@
 import { Controller, Get } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { HealthCheck, HealthCheckService } from "@nestjs/terminus";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import {
+	HealthCheck,
+	HealthCheckService,
+	PrismaHealthIndicator,
+} from "@nestjs/terminus";
+import { PrismaClient } from "@prisma/client";
 
 import { AppHealthIndicator } from "../indicators";
 
@@ -9,7 +14,8 @@ import { AppHealthIndicator } from "../indicators";
 export class HealthController {
 	constructor(
 		private health: HealthCheckService,
-		private healthIndicator: AppHealthIndicator,
+		private appIndicator: AppHealthIndicator,
+		private prismaIndicator: PrismaHealthIndicator,
 	) {}
 
 	@Get("")
@@ -17,7 +23,14 @@ export class HealthController {
 		noCache: true,
 		swaggerDocumentation: true,
 	})
+	@ApiOperation({
+		description: "This endpoint is used to check the health of the application",
+		summary: "Check the health of the application",
+	})
 	handle() {
-		return this.health.check([() => this.healthIndicator.isHealthy("API")]);
+		return this.health.check([
+			() => this.appIndicator.isHealthy("API"),
+			() => this.prismaIndicator.pingCheck("Database", new PrismaClient()),
+		]);
 	}
 }

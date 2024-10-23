@@ -1,7 +1,7 @@
 import { UniqueEntityId } from "@/core/entities";
 import { DomainEvents } from "@/core/events";
 import {
-	CustomerRepository,
+	CustomersRepository,
 	FetchCustomerRepositoryInput,
 	FetchCustomerRepositoryOutput,
 	GetByDocumentRepositoryOutput,
@@ -15,7 +15,7 @@ import {
 	CustomerEmail,
 } from "@/modules/customers/domain/enterprise/entities/value-objects";
 
-export class InMemoryCustomerRepository implements CustomerRepository {
+export class InMemoryCustomerRepository implements CustomersRepository {
 	public items: Array<Customer> = new Array();
 
 	constructor() {}

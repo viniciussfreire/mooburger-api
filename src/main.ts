@@ -1,4 +1,4 @@
-import { Logger, VersioningType } from "@nestjs/common";
+import { Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import {
 	FastifyAdapter,
@@ -23,6 +23,7 @@ async function bootstrap() {
 	app.enableVersioning({
 		type: VersioningType.URI,
 	});
+	app.useGlobalPipes(new ValidationPipe());
 
 	const documentFactory = () =>
 		SwaggerModule.createDocument(app, swaggerConfig);

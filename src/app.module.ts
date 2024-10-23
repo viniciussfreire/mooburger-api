@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 
+import { CustomersModule } from "./modules/customers";
 import { SharedModule } from "./shared";
 
 @Module({
-	imports: [SharedModule],
+	imports: [CustomersModule, SharedModule],
 })
 export class AppModule {}

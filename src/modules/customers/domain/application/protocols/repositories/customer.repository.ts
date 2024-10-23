@@ -20,7 +20,7 @@ export type FetchCustomerRepositoryOutput = IPaginationResult<Customer>;
 export type GetByDocumentRepositoryOutput = Customer | null;
 export type GetByEmailRepositoryOutput = Customer | null;
 
-export abstract class CustomerRepository {
+export abstract class CustomersRepository {
 	abstract save(
 		params: SaveCustomerRepositoryInput,
 	): Promise<SaveCustomerRepositoryOutput>;

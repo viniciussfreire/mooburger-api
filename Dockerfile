@@ -15,7 +15,7 @@ COPY --chown=node:node . .
 USER node
 
 ################################
-## Build for Prodcution Stage ##
+## Build for Production Stage ##
 ################################
 FROM node:20 AS build
 RUN npm install -g pnpm

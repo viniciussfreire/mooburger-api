@@ -6,7 +6,7 @@ import {
 	InvalidDocumentError,
 	InvalidEmailError,
 } from "../../enterprise/entities/errors";
-import { CustomerRepository } from "../protocols/repositories";
+import { CustomersRepository } from "../protocols/repositories";
 import { CustomerAlreadyExistsError } from "./errors";
 
 type RegisterCustomerUseCasePayload = {
@@ -24,7 +24,7 @@ type RegisterCustomerUseCaseResult = Either<
 export class RegisterCustomerUseCase {
 	#logger = new Logger(RegisterCustomerUseCase.name);
 
-	constructor(private readonly customerRepository: CustomerRepository) {}
+	constructor(private readonly customerRepository: CustomersRepository) {}
 
 	async perform(
 		params: RegisterCustomerUseCasePayload,

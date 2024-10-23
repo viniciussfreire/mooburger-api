@@ -4,12 +4,12 @@ import {
 	InvalidDocumentError,
 	InvalidEmailError,
 } from "../../enterprise/entities/errors";
-import { CustomerRepository } from "../protocols/repositories";
+import { CustomersRepository } from "../protocols/repositories";
 import { CustomerAlreadyExistsError } from "./errors";
 import { RegisterCustomerUseCase } from "./register-customer.use-case";
 
 describe("RegisterCustomerUseCase", () => {
-	let customerRepository: CustomerRepository;
+	let customerRepository: CustomersRepository;
 	let sut: RegisterCustomerUseCase;
 
 	beforeAll(() => {
