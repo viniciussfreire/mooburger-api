@@ -67,6 +67,7 @@ describe("RegisterCustomer (Integration Test)", () => {
 			// Assert
 			expect(response.status).toBe(400);
 			expect(response.body).toEqual({
+				error: "Bad Request",
 				statusCode: 400,
 				message: `The document "295249420" is invalid`,
 			});
@@ -96,6 +97,7 @@ describe("RegisterCustomer (Integration Test)", () => {
 			// Assert
 			expect(response.status).toBe(400);
 			expect(response.body).toEqual({
+				error: "Bad Request",
 				statusCode: 400,
 				message: `The email "john.doe@mail" is invalid`,
 			});
@@ -134,6 +136,7 @@ describe("RegisterCustomer (Integration Test)", () => {
 			// Assert
 			expect(response.status).toBe(400);
 			expect(response.body).toEqual({
+				error: "Bad Request",
 				statusCode: 400,
 				message: "Customer with document or email already exists",
 			});
@@ -172,6 +175,7 @@ describe("RegisterCustomer (Integration Test)", () => {
 			// Assert
 			expect(response.status).toBe(400);
 			expect(response.body).toEqual({
+				error: "Bad Request",
 				statusCode: 400,
 				message: "Customer with document or email already exists",
 			});

@@ -14,7 +14,7 @@ export default defineConfig({
 		fileParallelism: false,
 
 		globalSetup: ["./test/setup/global.ts"],
-		setupFiles: ["./test/setup/before-all.ts"],
+		setupFiles: ["./test/setup/before-each.ts"],
 	},
 	plugins: [
 		swc.vite({

@@ -8,7 +8,7 @@ export interface IPaginationResult<T> {
 
 export interface IPaginationOptions<T> {
 	filters: T;
-	newestFirst: boolean;
-	pageSize: number;
-	pageToken: string;
+	newestFirst?: boolean;
+	pageSize?: number;
+	pageToken?: string;
 }

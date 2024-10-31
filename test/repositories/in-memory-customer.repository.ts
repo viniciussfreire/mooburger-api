@@ -34,41 +34,43 @@ export class InMemoryCustomerRepository implements CustomersRepository {
 		pageToken,
 	}: FetchCustomerRepositoryInput): Promise<FetchCustomerRepositoryOutput> {
 		const data = this.items.filter((item) => {
-			if (filters?.name) {
-				return item.name === filters.name;
+			if (filters?.name && item.name !== filters.name) {
+				return false;
 			}
 
-			if (filters?.email) {
-				return item.email.value === filters.email.value;
+			if (filters?.email && item.email.value !== filters.email.value) {
+				return false;
 			}
 
-			if (filters?.document) {
-				return item.document.value === filters.document.value;
+			if (filters?.document && item.document.value !== filters.document.value) {
+				return false;
 			}
+
+			return true;
 		});
 
 		if (newestFirst) {
 			data.reverse();
 		}
 
-		if (pageToken) {
-			const index = this.items.findIndex((item) =>
-				item.id.equals(new UniqueEntityId(pageToken)),
-			);
-			data.slice(index + 1);
-		}
+		const startIndex = pageToken
+			? data.findIndex((item) => item.id.equals(new UniqueEntityId(pageToken)))
+			: 0;
 
-		if (pageSize) {
-			data.slice(0, pageSize);
-		}
+		const endIndex = pageSize ? startIndex + pageSize : data.length;
+
+		const items = data.slice(startIndex, endIndex);
 
 		return {
-			items: data,
-			total: this.items.length,
+			items,
+			total: items.length,
 			nextPageToken:
-				data.length > 0 ? data[data.length - 1].id.toStr() : undefined,
+				endIndex < data.length ? data[endIndex].id.toStr() : undefined,
 			previousPageToken: pageToken,
-			eof: pageSize && data.length < pageSize ? true : false,
+			eof:
+				(pageSize && items.length < pageSize) || endIndex >= data.length
+					? true
+					: false,
 		};
 	}
 

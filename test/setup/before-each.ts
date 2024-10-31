@@ -1,5 +1,5 @@
 import { flushPgTables } from "./postgres";
 
-beforeAll(async () => {
+beforeEach(async () => {
 	await flushPgTables();
 });

@@ -20,7 +20,7 @@
     "test:cov": "vitest run --coverage",
     "test:staged": "vitest related --run",
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
-    "test:int": "vitest run --config ./vitest.config.int.ts",
+    "test:int": "vitest run --config ./vitest.config.int.mts",
     "prepare:husky": "husky"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@faker-js/faker": "9.0.3",
     "@nestjs/cli": "10.0.0",
     "@nestjs/schematics": "10.0.0",
     "@nestjs/testing": "10.0.0",
