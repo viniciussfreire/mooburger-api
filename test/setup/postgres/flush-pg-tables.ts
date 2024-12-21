@@ -1,7 +1,7 @@
 import { Logger } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
+const prisma = new PrismaClient();
 const logger = new Logger("FlushPgTables");
 
 export const flushPgTables = async (): Promise<void> => {

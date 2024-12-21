@@ -13,8 +13,11 @@ services:
       - 5432:5432
     restart: always
     volumes:
-      - ./tmp/data/pg:/data/postgres
+      - data:/data/postgres
 
 networks:
   local:
     driver: bridge
+
+volumes:
+  data:

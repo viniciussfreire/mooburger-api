@@ -8,6 +8,10 @@ export const schema = z.object({
 		.string()
 		.default("3333")
 		.transform((value) => Number(value)),
+
+	DATABASE_URL: z
+		.string()
+		.default("jdbc:postgresql://admin@adminlocalhost:5432/mooburger"),
 });
 
 export type Envs = z.infer<typeof schema>;

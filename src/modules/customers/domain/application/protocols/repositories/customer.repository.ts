@@ -1,3 +1,4 @@
+import { UniqueEntityId } from "@/core/entities";
 import { IPaginationOptions, IPaginationResult } from "@/core/types";
 import { Customer } from "../../../enterprise/entities";
 import {
@@ -9,6 +10,7 @@ export type SaveCustomerRepositoryInput = Customer;
 export type SaveCustomerRepositoryOutput = void;
 
 type FetchCustomerOptions = {
+	id?: UniqueEntityId;
 	name?: string;
 	email?: CustomerEmail;
 	document?: CustomerDocument;

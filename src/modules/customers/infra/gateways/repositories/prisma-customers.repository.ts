@@ -44,12 +44,14 @@ export class PrismaCustomersRepository implements CustomersRepository {
 		pageToken,
 	}: FetchCustomerRepositoryInput): Promise<FetchCustomerRepositoryOutput> {
 		this.#logger.log("🤖 - Fetching customers...");
+
 		const raw = await this.prisma.customer.findMany({
 			where: {
 				name: filters?.name,
 				email: filters?.email?.value,
 				document: filters?.document?.value,
 				id: {
+					equals: filters?.id?.toStr(),
 					gt: pageToken,
 				},
 			},
@@ -63,12 +65,15 @@ export class PrismaCustomersRepository implements CustomersRepository {
 
 		const customers = raw.map(CustomerMapper.toDomain);
 
+		const eof = pageSize && raw.length < pageSize ? true : false;
+
 		return {
-			eof: pageSize && raw.length < pageSize ? true : false,
+			eof,
 			items: customers,
-			nextPageToken: customers.length
+			nextPageToken: !eof
 				? customers[customers.length - 1].id.toStr()
 				: undefined,
+			pageSize,
 			previousPageToken: pageToken,
 			total: customers.length,
 		};

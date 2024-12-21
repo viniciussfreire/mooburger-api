@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 
 import { Either, left, right } from "@/core";
+import { UniqueEntityId } from "@/core/entities";
 import { IPaginationOptions, IPaginationResult } from "@/core/types";
 import { Customer } from "../../enterprise/entities";
 import {
@@ -14,6 +15,7 @@ import {
 import { CustomersRepository } from "../protocols/repositories";
 
 type FetchCustomersUseCasePayload = IPaginationOptions<{
+	id?: string;
 	document?: string;
 	email?: string;
 	name?: string;
@@ -36,6 +38,11 @@ export class FetchCustomersUseCase {
 		pageToken,
 	}: FetchCustomersUseCasePayload): Promise<FetchCustomersUseCaseResult> {
 		this.#logger.log("🤖 - Fetching customers...");
+
+		let id: UniqueEntityId | undefined;
+		if (filters.id) {
+			id = new UniqueEntityId(filters.id);
+		}
 
 		let document: CustomerDocument | undefined;
 		if (filters.document) {
@@ -65,12 +72,13 @@ export class FetchCustomersUseCase {
 
 		const result = await this.customerRepository.fetch({
 			filters: {
+				id,
 				document,
 				email,
 				name: filters.name,
 			},
-			newestFirst: newestFirst ?? false,
-			pageSize: pageSize ?? undefined,
+			newestFirst: newestFirst ?? true,
+			pageSize: pageSize ?? 10,
 			pageToken: pageToken ?? undefined,
 		});
 

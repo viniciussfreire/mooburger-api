@@ -1,9 +1,10 @@
 export interface IPaginationResult<T> {
+	eof: boolean;
 	items: T[];
 	total: number;
 	nextPageToken?: string;
+	pageSize?: number;
 	previousPageToken?: string;
-	eof: boolean;
 }
 
 export interface IPaginationOptions<T> {
