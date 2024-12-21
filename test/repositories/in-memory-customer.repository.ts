@@ -34,6 +34,10 @@ export class InMemoryCustomerRepository implements CustomersRepository {
 		pageToken,
 	}: FetchCustomerRepositoryInput): Promise<FetchCustomerRepositoryOutput> {
 		const data = this.items.filter((item) => {
+			if (filters?.id && item.id.toStr() !== filters.id.toStr()) {
+				return false;
+			}
+
 			if (filters?.name && item.name !== filters.name) {
 				return false;
 			}

@@ -2,6 +2,10 @@ import { IPaginationResult } from "@/core/types";
 import { createCustomersInBatchFactory } from "@test/mocks/factories";
 import { InMemoryCustomerRepository } from "@test/repositories";
 import { Customer } from "../../enterprise/entities";
+import {
+	InvalidDocumentError,
+	InvalidEmailError,
+} from "../../enterprise/entities/errors";
 import { CustomersRepository } from "../protocols/repositories";
 import { FetchCustomersUseCase } from "./fetch-customers.use-case";
 
@@ -58,5 +62,86 @@ describe("FetchCustomersUseCase", () => {
 		expect(secondPage.total).toBe(10);
 		expect(secondPage.nextPageToken).toBeUndefined();
 		expect(secondPage.eof).toBeTruthy();
+	});
+
+	it("should be able to fetch customers filtering by ID", async () => {
+		// Arrange
+		const customers = createCustomersInBatchFactory(20);
+		for (const customer of customers) {
+			await customerRepository.save(customer);
+		}
+
+		const request = {
+			filters: {
+				id: customers[0].id.toStr(),
+			},
+			newestFirst: true,
+			pageSize: 10,
+		};
+
+		// Act
+		const resultOrError = await sut.perform(request);
+
+		// Assert
+		expect(resultOrError.isRight()).toBeTruthy();
+
+		const result = resultOrError.value as IPaginationResult<Customer>;
+
+		expect(result.items).toHaveLength(1);
+		expect(result.total).toBe(1);
+		expect(result.nextPageToken).toBeUndefined();
+		expect(result.eof).toBeTruthy();
+	});
+
+	it("should not be able to fetch customers filtering by invalid email", async () => {
+		// Arrange
+		const customers = createCustomersInBatchFactory(20);
+		for (const customer of customers) {
+			await customerRepository.save(customer);
+		}
+
+		const request = {
+			filters: {
+				email: "john.doe@mail",
+			},
+			newestFirst: true,
+			pageSize: 10,
+		};
+
+		// Act
+		const resultOrError = await sut.perform(request);
+
+		// Assert
+		expect(resultOrError.isLeft()).toBeTruthy();
+
+		const error = resultOrError.value as InvalidEmailError;
+
+		expect(error.message).toEqual(`The email "john.doe@mail" is invalid`);
+	});
+
+	it("should not be able to fetch customers filtering by invalid email", async () => {
+		// Arrange
+		const customers = createCustomersInBatchFactory(20);
+		for (const customer of customers) {
+			await customerRepository.save(customer);
+		}
+
+		const request = {
+			filters: {
+				document: "1234",
+			},
+			newestFirst: true,
+			pageSize: 10,
+		};
+
+		// Act
+		const resultOrError = await sut.perform(request);
+
+		// Assert
+		expect(resultOrError.isLeft()).toBeTruthy();
+
+		const error = resultOrError.value as InvalidDocumentError;
+
+		expect(error.message).toEqual(`The document "1234" is invalid`);
 	});
 });
